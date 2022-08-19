@@ -1,0 +1,16 @@
+<predefined> ::= '''def unet(pretrained_weights = None,input_size = (256,256,1)):\n\tinputs = Input(input_size)\n
+\t<architecture>\n
+\tmodel = Model(input = inputs, output = conv10)\n
+\tmodel.compile(optimizer = <opti>, loss = <loss_type>, metrics = ['accuracy'])\n
+\treturn model\n
+'''
+<architecture> ::= <layer> | <architecture>\n\t<layer>
+<layer> ::= <conv> | <pool>
+<conv> ::= Conv2D(64, 3, activation = <acti>, padding = 'same', kernel_initializer = 'he_normal')(inputs)
+<pool> ::= pool1 = <pooling>(pool_size=(2, 2))(inputs)
+<acti> ::= 'relu'
+<pooling> ::= MaxPooling2D | MeanPooling2D
+<drop_type> ::= Dropout | Dropblock
+<drop_param> ::= 0.4 | 0.5 | 0.6
+<opti> ::= Adam
+<loss_type> ::= 'binary_crossentropy'
