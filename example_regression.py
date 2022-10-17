@@ -62,13 +62,13 @@ if problem == 'nguyen5':
     Y_train = np.zeros([20,], dtype=float)
 
     for i in range(20):
-        Y_train[i] = sin(X_train[0,i]**2)*cos(X_train[0,i]) - 1
+        Y_train[i] = np.sin(X_train[0,i]**2)*np.cos(X_train[0,i]) - 1
 
     X_test = np.random.uniform(-1.0, 1.0, (1, 20))
     Y_test = np.zeros([20,], dtype=float)
 
     for i in range(20):
-        Y_test[i] = sin(X_test[0,i]**2)*cos(X_test[0,i]) - 1
+        Y_test[i] = np.sin(X_test[0,i]**2)*np.cos(X_test[0,i]) - 1
 
     GRAMMAR_FILE = 'Nguyen5.bnf'
 
