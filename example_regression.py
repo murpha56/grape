@@ -417,10 +417,10 @@ def fitness_test_Corr(individual, points):
 
     return fitness,
 
-POPULATION_SIZE = 100
-MAX_GENERATIONS = 5
-P_CROSSOVER = 0.8
-P_MUTATION = 0.01
+POPULATION_SIZE = 500
+MAX_GENERATIONS = 50
+P_CROSSOVER = 0.9
+P_MUTATION = 0.05
 ELITE_SIZE = round(0.01*POPULATION_SIZE) #it should be smaller or equal to HALLOFFAME_SIZE
 HALLOFFAME_SIZE = round(0.01*POPULATION_SIZE) #it should be at least 1
 
@@ -444,7 +444,7 @@ MAX_GENOME_LENGTH = None
 #PENALTY_DIVIDER = None
 #PENALISE_GREATER_THAN = None
 
-TOURNAMENT_SIZE = 7
+TOURNAMENT_SIZE = 5
 
 toolbox = base.Toolbox()
 
@@ -480,7 +480,7 @@ REPORT_ITEMS = ['gen', 'invalid', 'min_train', 'min_test',
           'best_ind_used_codons', 'avg_used_codons',
           'structural_diversity', 'fitness_diversity']
 
-N_RUNS = 3
+N_RUNS = 10
 
 for i in range(N_RUNS):
     print()
