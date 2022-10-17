@@ -23,8 +23,9 @@ import warnings
 warnings.filterwarnings("ignore")
 
 problem = sys.argv[1]
-if problem == 'vladislavleva4':
-    print("worked")
+fitfunc = sys.argv[2]
+#if problem == 'vladislavleva4':
+#print("worked")
 
 
 if problem == 'keijzer5':
@@ -38,12 +39,12 @@ if problem == 'keijzer5':
     #print("Together:")
     #print(X_train.shape)
     Y_train = np.zeros([1000,], dtype=float)
-    print(Y_train[0])
+    #print(Y_train[0])
 
     for i in range(1000):
         Y_train[i] = (30*X_train[0,i]*X_train[1,i])/((X_train[0,i]-10)*(X_train[2,i]**2))
 
-    print(Y_train[0])
+    #print(Y_train[0])
 
     X_test_1 = np.random.uniform(-1.0, 1.0, (2, 10000))
     X_test_2 = np.random.uniform(1, 2, (1, 10000))
@@ -59,16 +60,12 @@ if problem == 'nguyen5':
     #X_train = np.zeros([3,1000], dtype=float)
     X_train = np.random.uniform(-1.0, 1.0, (1, 20))
     Y_train = np.zeros([20,], dtype=float)
-    print(Y_train[0])
 
     for i in range(20):
         Y_train[i] = sin(X_train[0,i]**2)*cos(X_train[0,i]) - 1
 
-    print(Y_train[0])
-
     X_test = np.random.uniform(-1.0, 1.0, (1, 20))
     Y_test = np.zeros([20,], dtype=float)
-    print(Y_test[0])
 
     for i in range(20):
         Y_test[i] = sin(X_test[0,i]**2)*cos(X_test[0,i]) - 1
@@ -79,11 +76,8 @@ if problem == 'korns8':
     #X_train = np.zeros([3,1000], dtype=float)
     X_train = np.random.uniform(-50.0, 50.0, (5, 10000))
     Y_train = np.zeros([10000,], dtype=float)
-    print(Y_train[0])
     for i in range(10000):
         Y_train[i] = 6.87 + 11*sqrt(7.23*X_train[0,i]*X_train[1,i]*X_train[2,i])
-
-    print(Y_train[0])
 
     X_test = np.random.uniform(-50.0, 50.0, (5, 10000))
     Y_test = np.zeros([10000,], dtype=float)
@@ -480,7 +474,7 @@ REPORT_ITEMS = ['gen', 'invalid', 'min_train', 'min_test',
           'best_ind_used_codons', 'avg_used_codons',
           'structural_diversity', 'fitness_diversity']
 
-N_RUNS = 10
+N_RUNS = 30
 
 for i in range(N_RUNS):
     print()
@@ -540,7 +534,6 @@ for i in range(N_RUNS):
     best = hof.items[0].phenotype
     print("Best individual: \n","\n".join(textwrap.wrap(best,80)))
     print("\nTraining Fitness: ", hof.items[0].fitness.values[0])
-    print("\nTest Fitness: ", hof.items[0].fitness.values[0])
     print("Depth: ", hof.items[0].depth)
     print("Length of the genome: ", len(hof.items[0].genome))
     print(f'Used portion of the genome: {hof.items[0].used_codons/len(hof.items[0].genome):.2f}')
@@ -572,7 +565,7 @@ for i in range(N_RUNS):
     r = RANDOM_SEED
 
     header = REPORT_ITEMS
-    with open("results/" + problem + "_Run_" + str(i) + "_Seed_" + str(r) + ".csv", "w", encoding='UTF8', newline='') as csvfile:
+    with open("results/" + problem + "_FF_" + fitfunc + "_Run_" + str(i) + "_Seed_" + str(r) + ".csv", "w", encoding='UTF8', newline='') as csvfile:
         writer = csv.writer(csvfile, delimiter='\t')
         writer.writerow(header)
         for value in range(len(max_fitness_values)):
