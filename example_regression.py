@@ -24,18 +24,17 @@ warnings.filterwarnings("ignore")
 
 problem = sys.argv[1]
 fitfunc = sys.argv[2]
+#seed = sys.argv[3]
 #if problem == 'vladislavleva4':
 #print("worked")
 
 
 if problem == 'keijzer5':
-    #X_train = np.zeros([3,1000], dtype=float)
     X_train_1 = np.random.uniform(-1.0, 1.0, (2, 1000))
     X_train_2 = np.random.uniform(1, 2, (1, 1000))
     #print("Train1:")
     #print(X_train_2.shape)
     X_train = np.concatenate((X_train_1, X_train_2), axis=0)
-    #print(X_train[0,0])
     #print("Together:")
     #print(X_train.shape)
     Y_train = np.zeros([1000,], dtype=float)
@@ -56,6 +55,41 @@ if problem == 'keijzer5':
 
     GRAMMAR_FILE = 'Keijzer5.bnf'
 
+if problem == 'keijzer13':
+    #X_train = np.zeros([3,1000], dtype=float)
+    X_train = np.random.uniform(-3.0, 3.0, (2, 20))
+    Y_train = np.zeros([20,], dtype=float)
+    #print(Y_train[0])
+
+    for i in range(20):
+        Y_train[i] = 6*np.sin(X_train[0,i])*np.cos(X_train[1,i])
+
+    #print(Y_train[0])
+
+    X_test = np.random.uniform(-3.0, 3.0, (2, 20))
+    Y_test = np.zeros([20,], dtype=float)
+
+    for i in range(20):
+        Y_test[i] = 6*np.sin(X_test[0,i])*np.cos(X_test[1,i])
+
+    GRAMMAR_FILE = 'Keijzer13.bnf'
+
+if problem == 'nguyen7':
+    #X_train = np.zeros([3,1000], dtype=float)
+    X_train = np.random.uniform(0, 2.0, (1, 20))
+    Y_train = np.zeros([20,], dtype=float)
+
+    for i in range(20):
+        Y_train[i] = log(X_train[0,i] + 1) + log(X_train[0,i]**2 + 1)
+
+    X_test = np.random.uniform(0, 2.0, (1, 20))
+    Y_test = np.zeros([20,], dtype=float)
+
+    for i in range(20):
+        Y_test[i] = log(X_test[0,i] + 1) + log(X_test[0,i]**2 + 1)
+
+    GRAMMAR_FILE = 'Nguyen7.bnf'
+
 if problem == 'nguyen5':
     #X_train = np.zeros([3,1000], dtype=float)
     X_train = np.random.uniform(-1.0, 1.0, (1, 20))
@@ -72,19 +106,51 @@ if problem == 'nguyen5':
 
     GRAMMAR_FILE = 'Nguyen5.bnf'
 
-if problem == 'korns8':
+if problem == 'korns12':
     #X_train = np.zeros([3,1000], dtype=float)
     X_train = np.random.uniform(-50.0, 50.0, (5, 10000))
     Y_train = np.zeros([10000,], dtype=float)
     for i in range(10000):
-        Y_train[i] = 6.87 + 11*sqrt(7.23*X_train[0,i]*X_train[1,i]*X_train[2,i])
+        Y_train[i] = 2 - 2.1*np.cos(9.8*X_train[0,i])*np.sin(1.3*X_train[1,i])
+        print(Y_train[i])
 
     X_test = np.random.uniform(-50.0, 50.0, (5, 10000))
     Y_test = np.zeros([10000,], dtype=float)
     for i in range(10000):
-        Y_test[i] = 6.87 + 11*sqrt(7.23*X_test[0,i]*X_test[1,i]*X_test[2,i])
+        Y_test[i] = 2 - 2.1*np.cos(9.8*X_test[0,i])*np.sin(1.3*X_test[1,i])
 
-    GRAMMAR_FILE = 'Korns8.bnf'
+    GRAMMAR_FILE = 'Korns12.bnf'
+
+if problem == 'korns1':
+    #X_train = np.zeros([3,1000], dtype=float)
+    X_train = np.random.uniform(-50.0, 50.0, (5, 10000))
+    Y_train = np.zeros([10000,], dtype=float)
+    for i in range(10000):
+        Y_train[i] = 1.57 + 24.3*X_train[3,i]
+        print(Y_train[i])
+
+    X_test = np.random.uniform(-50.0, 50.0, (5, 10000))
+    Y_test = np.zeros([10000,], dtype=float)
+    for i in range(10000):
+        Y_test[i] = 1.57 + 24.3*X_test[3,i]
+
+    GRAMMAR_FILE = 'Korns1.bnf'
+
+
+if problem == 'korns5':
+    #X_train = np.zeros([3,1000], dtype=float)
+    X_train = np.random.uniform(-50.0, 50.0, (5, 10000))
+    Y_train = np.zeros([10000,], dtype=float)
+    for i in range(10000):
+        Y_train[i] = 3.0 + (2.13*plog(X_train[4,i])
+        print(Y_train[i])
+
+    X_test = np.random.uniform(-50.0, 50.0, (5, 10000))
+    Y_test = np.zeros([10000,], dtype=float)
+    for i in range(10000):
+        Y_test[i] = 3.0 + (2.13*plog(X_test[4,i])
+
+    GRAMMAR_FILE = 'Korns5.bnf'
 
 if problem == 'pagie1':
     X_train = np.zeros([2,676], dtype=float)
@@ -109,7 +175,7 @@ if problem == 'pagie1':
 
     GRAMMAR_FILE = 'Pagie1.bnf'
 
-elif problem == 'vladislavleva4':
+if problem == 'vladislavleva4':
     X_train = np.zeros([5,1024], dtype=float)
     Y_train = np.zeros([1024,], dtype=float)
 
@@ -131,6 +197,24 @@ elif problem == 'vladislavleva4':
         Y_test[i] = data_test['response'].iloc[i]
 
     GRAMMAR_FILE = 'Vladislavleva4.bnf'
+
+if problem == 'vladislavleva1':
+    X_train = np.random.uniform(0.3, 4.0, (2, 100))
+    Y_train = np.zeros([100,], dtype=float)
+
+    for i in range(100):
+        Y_train[i] = np.exp(-(X_train[0,i]-1)**2)/(1.2+(X_train[1,i]-2.5)**2)
+        print(Y_train[i])
+
+    X_test_1 = np.arange(-0.2, 4.2, 0.1)
+    X_test_2 = np.arange(-0.2, 4.2, 0.1)
+    X_test = np.concatenate((X_test_1, X_test_2), axis=0)
+    Y_test = np.zeros([2026,], dtype=float)
+
+    for i in range(2026):
+        Y_test[i] = np.exp(-(X_test[0,i]-1)**2)/(1.2+(X_test[1,i]-2.5)**2)
+
+    GRAMMAR_FILE = 'Vladislavleva1.bnf'
 
 elif problem == 'Dow':
     X_train = np.zeros([57,747], dtype=float)
@@ -231,6 +315,7 @@ def fitness_eval_MSE(individual, points):
 
     try:
         fitness = np.mean(np.square(y - pred))
+        print(fitness)
     except (FloatingPointError, ZeroDivisionError, OverflowError,
             MemoryError, ValueError):
         fitness = np.NaN
@@ -482,8 +567,10 @@ for i in range(N_RUNS):
     print("Run:", i+1)
     print()
 
-    RANDOM_SEED = random.randint(0,10000000)
+    RANDOM_SEED = random.randint(i)
     random.seed(RANDOM_SEED) #Comment this line or set a different RANDOM_SEED each run if you want distinct results
+
+    ##create data here,
 
     # create initial population (generation 0):
     if random_initilisation:

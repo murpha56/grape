@@ -166,6 +166,7 @@ def ge_eaSimpleWithElitism(population, toolbox, cxpb, mutpb, ngen, elite_size,
     # Update the hall of fame with the generated individuals
     if halloffame is not None:
         halloffame.update(valid)
+        print(valid)
         best_ind_length = len(halloffame.items[0].genome)
         best_ind_nodes = halloffame.items[0].nodes
         best_ind_depth = halloffame.items[0].depth
@@ -301,9 +302,9 @@ def ge_eaSimpleWithElitism(population, toolbox, cxpb, mutpb, ngen, elite_size,
                 if gen < ngen:
                     fitness_test = np.NaN
                 elif fitfunc == 'MSE':
-                    toolbox.evaluate_MSE(halloffame.items[0], points_test)[0]
+                    fitness_test = toolbox.evaluate_MSE(halloffame.items[0], points_test)[0]
                 elif fitfunc == 'LS':
-                    toolbox.evaluate_test_LS(halloffame.items[0], points_test)[0]
+                    fitness_test = toolbox.evaluate_test_LS(halloffame.items[0], points_test)[0]
                 elif fitfunc == 'Corr':
                     fitness_test = toolbox.evaluate_test_Corr(halloffame.items[0], points_test)[0]
                 else:
