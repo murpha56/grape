@@ -14,6 +14,7 @@ from functions import add, sub, mul, pdiv, plog, exp, psqrt
 from os import path
 import pandas as pd
 import numpy as np
+print(np.__version__)
 from deap import creator, base, tools
 import scipy.stats
 
@@ -248,13 +249,13 @@ def fitness_eval(individual, points):
     try:
         pred = eval(individual.phenotype)
     except (FloatingPointError, ZeroDivisionError, OverflowError,
-            MemoryError, ValueError, AttributeError):
+            MemoryError, ValueError):
         return np.NaN,
     except Exception as err:
             # Other errors should not usually happen (unless we have
             # an unprotected operator) so user would prefer to see them.
-            print("evaluation error", err)
-            raise
+        print("evaluation error", err)
+        raise
     assert np.isrealobj(pred)
 
     #print(y)
@@ -273,13 +274,13 @@ def fitness_eval(individual, points):
             corr_matrix = np.corrcoef(y, pred)
             fitness = 1 - (corr_matrix[0,1]**2)
     except (FloatingPointError, ZeroDivisionError, OverflowError,
-            MemoryError, ValueError, AttributeError):
+            MemoryError, ValueError):
         fitness = np.NaN
     except Exception as err:
             # Other errors should not usually happen (unless we have
             # an unprotected operator) so user would prefer to see them.
-            print("fitness error", err)
-            raise
+        print("fitness error", err)
+        raise
 
     if fitness == float("inf"):
         return np.NaN,
@@ -300,26 +301,26 @@ def fitness_eval_MSE(individual, points):
     try:
         pred = eval(individual.phenotype)
     except (FloatingPointError, ZeroDivisionError, OverflowError,
-            MemoryError, ValueError, AttributeError):
+            MemoryError, ValueError):
         return np.NaN,
     except Exception as err:
             # Other errors should not usually happen (unless we have
             # an unprotected operator) so user would prefer to see them.
-            print("evaluation error", err)
-            raise
+        print("evaluation error", err)
+        raise
     assert np.isrealobj(pred)
 
     try:
         fitness = np.mean(np.square(y - pred))
         #print(fitness)
     except (FloatingPointError, ZeroDivisionError, OverflowError,
-            MemoryError, ValueError, AttributeError):
+            MemoryError, ValueError):
         fitness = np.NaN
     except Exception as err:
             # Other errors should not usually happen (unless we have
             # an unprotected operator) so user would prefer to see them.
-            print("fitness error", err)
-            raise
+        print("fitness error", err)
+        raise
 
     if fitness == float("inf"):
         return np.NaN,
@@ -342,13 +343,13 @@ def fitness_eval_LS(individual, points):
     try:
         pred = eval(individual.phenotype)
     except (FloatingPointError, ZeroDivisionError, OverflowError,
-            MemoryError, ValueError, AttributeError):
+            MemoryError, ValueError):
         return np.NaN,
     except Exception as err:
             # Other errors should not usually happen (unless we have
             # an unprotected operator) so user would prefer to see them.
-            print("evaluation error", err)
-            raise
+        print("evaluation error", err)
+        raise
     assert np.isrealobj(pred)
 
     try:
@@ -356,13 +357,13 @@ def fitness_eval_LS(individual, points):
         scaled_output = intercept + slope*pred
         fitness = np.mean(np.square(y - scaled_output))
     except (FloatingPointError, ZeroDivisionError, OverflowError,
-            MemoryError, ValueError, AttributeError):
+            MemoryError, ValueError):
         fitness = np.NaN
     except Exception as err:
             # Other errors should not usually happen (unless we have
             # an unprotected operator) so user would prefer to see them.
-            print("fitness error", err)
-            raise
+        print("fitness error", err)
+        raise
 
     if fitness == float("inf"):
         return np.NaN,
@@ -384,26 +385,26 @@ def fitness_test_LS(individual, points):
     try:
         pred = eval(individual.phenotype)
     except (FloatingPointError, ZeroDivisionError, OverflowError,
-            MemoryError, ValueError, AttributeError):
+            MemoryError, ValueError):
         return np.NaN,
     except Exception as err:
             # Other errors should not usually happen (unless we have
             # an unprotected operator) so user would prefer to see them.
-            print("evaluation error", err)
-            raise
+        print("evaluation error", err)
+        raise
     assert np.isrealobj(pred)
 
     try:
         scaled_output = individual.intercept + individual.slope*pred
         fitness = np.mean(np.square(y - scaled_output))
     except (FloatingPointError, ZeroDivisionError, OverflowError,
-            MemoryError, ValueError, AttributeError):
+            MemoryError, ValueError):
         fitness = np.NaN
     except Exception as err:
             # Other errors should not usually happen (unless we have
             # an unprotected operator) so user would prefer to see them.
-            print("fitness error", err)
-            raise
+        print("fitness error", err)
+        raise
 
     if fitness == float("inf"):
         return np.NaN,
@@ -425,13 +426,13 @@ def fitness_eval_Corr(individual, points):
     try:
         pred = eval(individual.phenotype)
     except (FloatingPointError, ZeroDivisionError, OverflowError,
-            MemoryError, ValueError, AttributeError):
+            MemoryError, ValueError):
         return np.NaN,
     except Exception as err:
             # Other errors should not usually happen (unless we have
             # an unprotected operator) so user would prefer to see them.
-            print("evaluation error", err)
-            raise
+        print("evaluation error", err)
+        raise
     assert np.isrealobj(pred)
 
     try:
@@ -439,13 +440,13 @@ def fitness_eval_Corr(individual, points):
         corr_matrix = np.corrcoef(y, pred)
         fitness = 1 - (corr_matrix[0,1]**2)
     except (FloatingPointError, ZeroDivisionError, OverflowError,
-            MemoryError, ValueError, AttributeError):
+            MemoryError, ValueError):
         fitness = np.NaN
     except Exception as err:
             # Other errors should not usually happen (unless we have
             # an unprotected operator) so user would prefer to see them.
-            print("fitness error", err)
-            raise
+        print("fitness error", err)
+        raise
 
     if fitness == float("inf"):
         return np.NaN,
@@ -466,26 +467,27 @@ def fitness_test_Corr(individual, points):
     try:
         pred = eval(individual.phenotype)
     except (FloatingPointError, ZeroDivisionError, OverflowError,
-            MemoryError, ValueError, AttributeError):
+            MemoryError, ValueError):
         return np.NaN,
     except Exception as err:
             # Other errors should not usually happen (unless we have
             # an unprotected operator) so user would prefer to see them.
-            print("evaluation error", err)
-            raise
+        print("evaluation error", err)
+        raise
     assert np.isrealobj(pred)
 
     try:
         scaled_output = individual.intercept + individual.slope*pred
         fitness = np.mean(np.square(y - scaled_output))
     except (FloatingPointError, ZeroDivisionError, OverflowError,
-            MemoryError, ValueError, AttributeError):
+            MemoryError, ValueError):
         fitness = np.NaN
     except Exception as err:
+
             # Other errors should not usually happen (unless we have
             # an unprotected operator) so user would prefer to see them.
-            print("fitness error", err)
-            raise
+        print("fitness error", err)
+        raise
 
     if fitness == float("inf"):
         return np.NaN,
@@ -561,11 +563,13 @@ for i in range(N_RUNS):
     print()
     print()
     print("Run:", i+1)
+    print(str(i+1))
     print()
 
     #RANDOM_SEED = random.randint(i)
-    RANDOM_SEED = random.seed(i) #Comment this line or set a different RANDOM_SEED each run if you want distinct results
-
+    random.seed(i) #Comment this line or set a different RANDOM_SEED each run if you want distinct results
+    print("This is the random seed")
+    print(random.random())
 #    if problem == 'keijzer5':
     X_train_1 = np.random.uniform(-1.0, 1.0, (2, 1000))
     X_train_2 = np.random.uniform(1, 2, (1, 1000))
@@ -668,10 +672,10 @@ for i in range(N_RUNS):
     fitness_test = logbook.select("fitness_test")
 
     import csv
-    r = RANDOM_SEED
+    #r = RANDOM_SEED
 
     header = REPORT_ITEMS
-    with open("results/" + problem + "_FF_" + fitfunc + "_Run_" + str(i) + "_Seed_" + str(r) + ".csv", "w", encoding='UTF8', newline='') as csvfile:
+    with open("results/" + problem + "_FF_" + fitfunc + "_Run_" + str(i+1) + "_Seed_" + str(random.random()) + ".csv", "w", encoding='UTF8', newline='') as csvfile:
         writer = csv.writer(csvfile, delimiter='\t')
         writer.writerow(header)
         for value in range(len(max_fitness_values)):
