@@ -28,32 +28,32 @@ fitfunc = sys.argv[2]
 #if problem == 'vladislavleva4':
 #print("worked")
 
-
 if problem == 'keijzer5':
-    X_train_1 = np.random.uniform(-1.0, 1.0, (2, 1000))
-    X_train_2 = np.random.uniform(1, 2, (1, 1000))
+#    X_train_1 = np.random.uniform(-1.0, 1.0, (2, 1000))
+#    X_train_2 = np.random.uniform(1, 2, (1, 1000))
     #print("Train1:")
     #print(X_train_2.shape)
-    X_train = np.concatenate((X_train_1, X_train_2), axis=0)
+#    X_train = np.concatenate((X_train_1, X_train_2), axis=0)
     #print("Together:")
     #print(X_train.shape)
-    Y_train = np.zeros([1000,], dtype=float)
+#    Y_train = np.zeros([1000,], dtype=float)
     #print(Y_train[0])
 
-    for i in range(1000):
-        Y_train[i] = (30*X_train[0,i]*X_train[1,i])/((X_train[0,i]-10)*(X_train[2,i]**2))
+#    for i in range(1000):
+#        Y_train[i] = (30*X_train[0,i]*X_train[1,i])/((X_train[0,i]-10)*(X_train[2,i]**2))
 
-    #print(Y_train[0])
+        #print(Y_train[0])
 
-    X_test_1 = np.random.uniform(-1.0, 1.0, (2, 10000))
-    X_test_2 = np.random.uniform(1, 2, (1, 10000))
-    X_test = np.concatenate((X_test_1, X_test_2), axis=0)
-    Y_test = np.zeros([10000,], dtype=float)
+#    X_test_1 = np.random.uniform(-1.0, 1.0, (2, 10000))
+#    X_test_2 = np.random.uniform(1, 2, (1, 10000))
+#    X_test = np.concatenate((X_test_1, X_test_2), axis=0)
+#    Y_test = np.zeros([10000,], dtype=float)
 
-    for i in range(10000):
-        Y_test[i] = (30*X_test[0,i]*X_test[1,i])/((X_test[0,i]-10)*(X_test[2,i]**2))
+#    for i in range(10000):
+#        Y_test[i] = (30*X_test[0,i]*X_test[1,i])/((X_test[0,i]-10)*(X_test[2,i]**2))
 
     GRAMMAR_FILE = 'Keijzer5.bnf'
+
 
 if problem == 'keijzer13':
     #X_train = np.zeros([3,1000], dtype=float)
@@ -112,7 +112,6 @@ if problem == 'korns12':
     Y_train = np.zeros([10000,], dtype=float)
     for i in range(10000):
         Y_train[i] = 2 - 2.1*np.cos(9.8*X_train[0,i])*np.sin(1.3*X_train[1,i])
-        print(Y_train[i])
 
     X_test = np.random.uniform(-50.0, 50.0, (5, 10000))
     Y_test = np.zeros([10000,], dtype=float)
@@ -127,7 +126,6 @@ if problem == 'korns1':
     Y_train = np.zeros([10000,], dtype=float)
     for i in range(10000):
         Y_train[i] = 1.57 + 24.3*X_train[3,i]
-        print(Y_train[i])
 
     X_test = np.random.uniform(-50.0, 50.0, (5, 10000))
     Y_test = np.zeros([10000,], dtype=float)
@@ -142,13 +140,12 @@ if problem == 'korns5':
     X_train = np.random.uniform(-50.0, 50.0, (5, 10000))
     Y_train = np.zeros([10000,], dtype=float)
     for i in range(10000):
-        Y_train[i] = 3.0 + (2.13*plog(X_train[4,i])
-        print(Y_train[i])
+        Y_train[i] = 3.0 + (2.13*plog(X_train[4,i]))
 
     X_test = np.random.uniform(-50.0, 50.0, (5, 10000))
     Y_test = np.zeros([10000,], dtype=float)
     for i in range(10000):
-        Y_test[i] = 3.0 + (2.13*plog(X_test[4,i])
+        Y_test[i] = 3.0 + (2.13*plog(X_test[4,i]))
 
     GRAMMAR_FILE = 'Korns5.bnf'
 
@@ -204,7 +201,6 @@ if problem == 'vladislavleva1':
 
     for i in range(100):
         Y_train[i] = np.exp(-(X_train[0,i]-1)**2)/(1.2+(X_train[1,i]-2.5)**2)
-        print(Y_train[i])
 
     X_test_1 = np.arange(-0.2, 4.2, 0.1)
     X_test_2 = np.arange(-0.2, 4.2, 0.1)
@@ -252,7 +248,7 @@ def fitness_eval(individual, points):
     try:
         pred = eval(individual.phenotype)
     except (FloatingPointError, ZeroDivisionError, OverflowError,
-            MemoryError, ValueError):
+            MemoryError, ValueError, AttributeError):
         return np.NaN,
     except Exception as err:
             # Other errors should not usually happen (unless we have
@@ -277,7 +273,7 @@ def fitness_eval(individual, points):
             corr_matrix = np.corrcoef(y, pred)
             fitness = 1 - (corr_matrix[0,1]**2)
     except (FloatingPointError, ZeroDivisionError, OverflowError,
-            MemoryError, ValueError):
+            MemoryError, ValueError, AttributeError):
         fitness = np.NaN
     except Exception as err:
             # Other errors should not usually happen (unless we have
@@ -304,7 +300,7 @@ def fitness_eval_MSE(individual, points):
     try:
         pred = eval(individual.phenotype)
     except (FloatingPointError, ZeroDivisionError, OverflowError,
-            MemoryError, ValueError):
+            MemoryError, ValueError, AttributeError):
         return np.NaN,
     except Exception as err:
             # Other errors should not usually happen (unless we have
@@ -315,9 +311,9 @@ def fitness_eval_MSE(individual, points):
 
     try:
         fitness = np.mean(np.square(y - pred))
-        print(fitness)
+        #print(fitness)
     except (FloatingPointError, ZeroDivisionError, OverflowError,
-            MemoryError, ValueError):
+            MemoryError, ValueError, AttributeError):
         fitness = np.NaN
     except Exception as err:
             # Other errors should not usually happen (unless we have
@@ -346,7 +342,7 @@ def fitness_eval_LS(individual, points):
     try:
         pred = eval(individual.phenotype)
     except (FloatingPointError, ZeroDivisionError, OverflowError,
-            MemoryError, ValueError):
+            MemoryError, ValueError, AttributeError):
         return np.NaN,
     except Exception as err:
             # Other errors should not usually happen (unless we have
@@ -360,7 +356,7 @@ def fitness_eval_LS(individual, points):
         scaled_output = intercept + slope*pred
         fitness = np.mean(np.square(y - scaled_output))
     except (FloatingPointError, ZeroDivisionError, OverflowError,
-            MemoryError, ValueError):
+            MemoryError, ValueError, AttributeError):
         fitness = np.NaN
     except Exception as err:
             # Other errors should not usually happen (unless we have
@@ -388,7 +384,7 @@ def fitness_test_LS(individual, points):
     try:
         pred = eval(individual.phenotype)
     except (FloatingPointError, ZeroDivisionError, OverflowError,
-            MemoryError, ValueError):
+            MemoryError, ValueError, AttributeError):
         return np.NaN,
     except Exception as err:
             # Other errors should not usually happen (unless we have
@@ -401,7 +397,7 @@ def fitness_test_LS(individual, points):
         scaled_output = individual.intercept + individual.slope*pred
         fitness = np.mean(np.square(y - scaled_output))
     except (FloatingPointError, ZeroDivisionError, OverflowError,
-            MemoryError, ValueError):
+            MemoryError, ValueError, AttributeError):
         fitness = np.NaN
     except Exception as err:
             # Other errors should not usually happen (unless we have
@@ -429,7 +425,7 @@ def fitness_eval_Corr(individual, points):
     try:
         pred = eval(individual.phenotype)
     except (FloatingPointError, ZeroDivisionError, OverflowError,
-            MemoryError, ValueError):
+            MemoryError, ValueError, AttributeError):
         return np.NaN,
     except Exception as err:
             # Other errors should not usually happen (unless we have
@@ -443,7 +439,7 @@ def fitness_eval_Corr(individual, points):
         corr_matrix = np.corrcoef(y, pred)
         fitness = 1 - (corr_matrix[0,1]**2)
     except (FloatingPointError, ZeroDivisionError, OverflowError,
-            MemoryError, ValueError):
+            MemoryError, ValueError, AttributeError):
         fitness = np.NaN
     except Exception as err:
             # Other errors should not usually happen (unless we have
@@ -470,7 +466,7 @@ def fitness_test_Corr(individual, points):
     try:
         pred = eval(individual.phenotype)
     except (FloatingPointError, ZeroDivisionError, OverflowError,
-            MemoryError, ValueError):
+            MemoryError, ValueError, AttributeError):
         return np.NaN,
     except Exception as err:
             # Other errors should not usually happen (unless we have
@@ -483,7 +479,7 @@ def fitness_test_Corr(individual, points):
         scaled_output = individual.intercept + individual.slope*pred
         fitness = np.mean(np.square(y - scaled_output))
     except (FloatingPointError, ZeroDivisionError, OverflowError,
-            MemoryError, ValueError):
+            MemoryError, ValueError, AttributeError):
         fitness = np.NaN
     except Exception as err:
             # Other errors should not usually happen (unless we have
@@ -559,7 +555,7 @@ REPORT_ITEMS = ['gen', 'invalid', 'min_train', 'min_test',
           'best_ind_used_codons', 'avg_used_codons',
           'structural_diversity', 'fitness_diversity']
 
-N_RUNS = 30
+N_RUNS = 100
 
 for i in range(N_RUNS):
     print()
@@ -567,10 +563,33 @@ for i in range(N_RUNS):
     print("Run:", i+1)
     print()
 
-    RANDOM_SEED = random.randint(i)
-    random.seed(RANDOM_SEED) #Comment this line or set a different RANDOM_SEED each run if you want distinct results
+    #RANDOM_SEED = random.randint(i)
+    RANDOM_SEED = random.seed(i) #Comment this line or set a different RANDOM_SEED each run if you want distinct results
 
-    ##create data here,
+#    if problem == 'keijzer5':
+    X_train_1 = np.random.uniform(-1.0, 1.0, (2, 1000))
+    X_train_2 = np.random.uniform(1, 2, (1, 1000))
+        #print("Train1:")
+        #print(X_train_2.shape)
+    X_train = np.concatenate((X_train_1, X_train_2), axis=0)
+        #print("Together:")
+        #print(X_train.shape)
+    Y_train = np.zeros([1000,], dtype=float)
+        #print(Y_train[0])
+
+    for i in range(1000):
+        Y_train[i] = (30*X_train[0,i]*X_train[1,i])/((X_train[0,i]-10)*(X_train[2,i]**2))
+
+        #print(Y_train[0])
+
+    X_test_1 = np.random.uniform(-1.0, 1.0, (2, 10000))
+    X_test_2 = np.random.uniform(1, 2, (1, 10000))
+    X_test = np.concatenate((X_test_1, X_test_2), axis=0)
+    Y_test = np.zeros([10000,], dtype=float)
+
+    for i in range(10000):
+        Y_test[i] = (30*X_test[0,i]*X_test[1,i])/((X_test[0,i]-10)*(X_test[2,i]**2))
+
 
     # create initial population (generation 0):
     if random_initilisation:

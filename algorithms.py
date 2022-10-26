@@ -166,7 +166,6 @@ def ge_eaSimpleWithElitism(population, toolbox, cxpb, mutpb, ngen, elite_size,
     # Update the hall of fame with the generated individuals
     if halloffame is not None:
         halloffame.update(valid)
-        print(valid)
         best_ind_length = len(halloffame.items[0].genome)
         best_ind_nodes = halloffame.items[0].nodes
         best_ind_depth = halloffame.items[0].depth
